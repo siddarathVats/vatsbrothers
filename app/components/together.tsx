@@ -1,6 +1,8 @@
 import { Reveal } from "./reveal";
 
-const CELLS = [
+type Cell = { num: string; title: string; body: string; wide?: boolean };
+
+const CELLS: Cell[] = [
   {
     num: "01 · flagship",
     wide: true,
@@ -32,7 +34,7 @@ const CELLS = [
     title: "Cost & migration audits",
     body: "Concrete: we cut a client’s vector-search bill by swapping OpenSearch Serverless for pgvector. We do this kind of audit as a fixed-scope engagement.",
   },
-] as const;
+];
 
 export function Together() {
   return (
