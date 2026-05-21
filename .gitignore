@@ -1,0 +1,24 @@
+node_modules
+.next
+out
+.env*.local
+.env
+.vercel
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# Handoff bundle / design source (kept locally for reference)
+_design_source.html
+_design_chat.md
+
+# Raw uploaded source files — only their /public copies are deployed
+/Sidheadshot.png
+/Sidheadshot.jpeg
+/Vinayak_headshot.png
+/Vinayak_Vats_Resume_v5.pdf
+/CV_Siddarath.pdf
+/Vats_Siddarath_CV.pdf
+/image.png
+/image1.png
+/Achievements/
