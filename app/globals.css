@@ -1088,29 +1088,30 @@ button {
   text-transform: uppercase;
 }
 
-/* Heavy monochrome blue duotone for Siddarath's section. */
-.bro[data-brother="sid"] .wcard__media img {
+/* Monochrome accent-tinted treatment on every brother's project screenshots.
+   Sid's section resolves --accent to sky-300, Vin's to red-300. */
+.bro .wcard__media img {
   filter: grayscale(100%) contrast(1.08) brightness(0.9);
   transition: filter 320ms var(--ease);
 }
-.bro[data-brother="sid"] .wcard__media::after {
+.bro .wcard__media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--accent-sid);
+  background: var(--accent);
   mix-blend-mode: color;
-  opacity: 0.55;
+  opacity: 0.5;
   pointer-events: none;
   transition: opacity 320ms var(--ease);
 }
-.bro[data-brother="sid"] .wcard__media:hover::after {
-  opacity: 0.25;
+.bro .wcard__media:hover::after {
+  opacity: 0.2;
 }
-.bro[data-brother="sid"] .wcard__media:hover img {
+.bro .wcard__media:hover img {
   filter: grayscale(40%) contrast(1.05) brightness(1);
 }
-[data-theme="light"] .bro[data-brother="sid"] .wcard__media::after {
-  opacity: 0.4;
+[data-theme="light"] .bro .wcard__media::after {
+  opacity: 0.36;
 }
 
 /* Clickable wcard media (lightbox trigger) */

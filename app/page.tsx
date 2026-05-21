@@ -107,7 +107,7 @@ export default function Page() {
                 cohort analysis.
               </p>
               <p>
-                He is the prime developer at{" "}
+                He is the lead developer at{" "}
                 <a
                   href="https://app.ezer.network"
                   target="_blank"
@@ -143,13 +143,13 @@ export default function Page() {
             {
               kicker: (
                 <>
-                  PRODUCT · OWNER
+                  PRODUCT · LEAD DEVELOPER
                   <br />
                   ALUMNI NETWORK
                 </>
               ),
               title: "EZER, AI-native alumni networking platform",
-              body: "Prime developer on EZER, an AI-native alumni networking platform pairing LangGraph agents with vector search (pgvector on Postgres) and an AI chat surface for warm-intro discovery. Production app at app.ezer.network covers the agent stack, retrieval, embeddings, and the conversational layer on top of the network graph; the analytics surface tracks alumni distribution by major, institution, city, and graduation year.",
+              body: "Lead developer on EZER, an AI-native alumni networking platform pairing LangGraph agents with vector search (pgvector on Postgres) and an AI chat surface for warm-intro discovery. Production app at app.ezer.network covers the agent stack, retrieval, embeddings, and the conversational layer on top of the network graph; the analytics surface tracks alumni distribution by major, institution, city, and graduation year.",
               chips: ["LangGraph", "pgvector", "Lambda", "SES", "AI chat"],
               href: "https://app.ezer.network",
               stretch: true,
