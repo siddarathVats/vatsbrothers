@@ -149,10 +149,22 @@ export default function Page() {
                 </>
               ),
               title: "EZER, AI-native alumni networking platform",
-              body: "Owner of EZER, an AI-native alumni networking platform pairing LangGraph agents with vector search (pgvector on Postgres) and an AI chat surface for warm-intro discovery. Production app at app.ezer.network covers the agent stack, retrieval, embeddings, and the conversational layer on top of the network graph.",
+              body: "Prime developer on EZER, an AI-native alumni networking platform pairing LangGraph agents with vector search (pgvector on Postgres) and an AI chat surface for warm-intro discovery. Production app at app.ezer.network covers the agent stack, retrieval, embeddings, and the conversational layer on top of the network graph; the analytics surface tracks alumni distribution by major, institution, city, and graduation year.",
               chips: ["LangGraph", "pgvector", "Lambda", "SES", "AI chat"],
               href: "https://app.ezer.network",
               stretch: true,
+              mediaGroup: [
+                {
+                  src: "/projects/ezer-analytics.png",
+                  alt: "EZER alumni network analytics dashboard — top majors, institutions, cities, class year distribution",
+                  caption: "analytics · alumni",
+                },
+                {
+                  src: "/projects/ezer-ai-chat.png",
+                  alt: "EZER AI Assistant chat — natural-language alumni search and mentorship discovery",
+                  caption: "EZER AI · chat",
+                },
+              ],
             },
             {
               kicker: (
