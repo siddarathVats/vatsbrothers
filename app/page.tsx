@@ -344,12 +344,9 @@ export default function Page() {
                 ingestion.
               </p>
               <p>
-                Freelance engagements include <strong>Sinewave</strong>
-                {" "}(multi-tenant compliance SaaS, WhatsApp reminder service on
-                SQS / Lambda / node-cron); <strong>Dutchman Media
-                Amsterdam</strong> (multi-step onboarding with RJSF v6 + shadcn
-                on React 19); <strong>CTT</strong> (Indian government
-                procurement intelligence, contractor-tender matching with
+                Freelance engagements include <strong>CTT</strong> (Indian
+                government procurement intelligence, contractor-tender matching
+                with
                 pgvector); <strong>Strix/Aegis</strong> (human-in-the-loop
                 LangGraph + Textual TUI with Docker sandboxing); and{" "}
                 <strong>ThinkZone NGO</strong> (WhatsApp broadcast bot). At{" "}
