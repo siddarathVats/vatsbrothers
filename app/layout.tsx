@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "./theme-provider";
 import { LightboxProvider } from "./components/lightbox";
 import "./globals.css";
@@ -56,6 +57,7 @@ export default function RootLayout({
         >
           <LightboxProvider>{children}</LightboxProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
