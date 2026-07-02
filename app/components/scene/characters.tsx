@@ -99,6 +99,12 @@ const LOOKS: Record<
 
 const SKIN = "#e0b48f";
 const PANTS = "#39404d";
+const EYE = "#181210";
+
+/** 0 → 1 pulse when x crosses near its peak — used for occasional glances. */
+function pulse(x: number): number {
+  return THREE.MathUtils.smoothstep(x, 0.86, 0.97);
+}
 
 /** Shared 3-step toon gradient — module scope, created once, never disposed. */
 let toonGradient: THREE.DataTexture | null = null;
@@ -136,6 +142,7 @@ export function Brother({
   const root = useRef<THREE.Group>(null);
   const torso = useRef<THREE.Group>(null);
   const head = useRef<THREE.Group>(null);
+  const eyes = useRef<THREE.Group>(null);
   const armL = useRef<THREE.Group>(null);
   const armR = useRef<THREE.Group>(null);
   const laptop = useRef<THREE.Group>(null);
@@ -170,23 +177,52 @@ export function Brother({
     const breathe = Math.sin(t * 1.05) * 0.018;
     const dozeSway = p.dozing ? Math.sin(t * 0.45) * 0.05 : 0;
     if (torso.current) {
+      // Slow weight shift so the whole figure never sits perfectly still.
+      const shift = Math.sin(t * 0.31) * 0.015;
       easing.damp(torso.current.rotation, "x", p.torsoLean + dozeSway, 0.5, delta);
       torso.current.scale.y = 1 + breathe;
-      torso.current.rotation.z = Math.sin(t * 0.7) * 0.02;
+      torso.current.rotation.z = Math.sin(t * 0.7) * 0.02 + shift;
     }
     if (head.current) {
-      easing.damp(head.current.rotation, "x", p.headDrop + dozeSway * 1.6, 0.5, delta);
+      // Layered head life: typing nods, doze nod-off with a jerk awake,
+      // wandering gaze, and occasional glances toward the other brother.
+      const typingNod = p.typing ? Math.sin(t * 4.3) * 0.024 : 0;
+      const dozeNod = p.dozing
+        ? Math.pow(Math.max(0, Math.sin(t * 0.18)), 9) * -0.35
+        : 0;
+      easing.damp(
+        head.current.rotation,
+        "x",
+        p.headDrop + dozeSway * 1.6 + typingNod + dozeNod,
+        0.3,
+        delta,
+      );
+      const wander = 0.1 * Math.sin(t * 0.23) + 0.05 * Math.sin(t * 0.61 + 2);
+      const glance = pulse(Math.sin(t * 0.14 + look.phase * 1.7));
+      const glanceYaw = (id === "sid" ? 0.55 : -0.55) * glance;
+      easing.damp(head.current.rotation, "y", p.dozing ? 0 : wander + glanceYaw, 0.3, delta);
       head.current.rotation.z = Math.sin(t * 0.6 + 1) * 0.03;
     }
+    if (eyes.current) {
+      // Blinks (quick dips) — held closed while dozing.
+      const blink = 1 - THREE.MathUtils.smoothstep(Math.sin(t * 1.9 + look.phase * 5), 0.982, 0.995) * 0.9;
+      easing.damp(eyes.current.scale, "y", p.dozing ? 0.12 : blink, 0.06, delta);
+    }
     const typeJitter = p.typing ? Math.sin(t * 9.5) * 0.05 : 0;
+    const armDrift = Math.sin(t * 0.5 + look.phase) * 0.015;
     if (armL.current) {
-      easing.damp(armL.current.rotation, "x", p.armL[0] + typeJitter, 0.45, delta);
-      easing.damp(armL.current.rotation, "z", p.armL[2] + 0.0, 0.45, delta);
+      easing.damp(armL.current.rotation, "x", p.armL[0] + typeJitter + armDrift, 0.45, delta);
+      easing.damp(armL.current.rotation, "z", p.armL[2], 0.45, delta);
     }
     if (armR.current) {
       const sipBob = p.mug ? Math.sin(t * 0.9) * 0.06 : 0;
-      easing.damp(armR.current.rotation, "x", p.armR[0] - typeJitter + sipBob, 0.45, delta);
+      easing.damp(armR.current.rotation, "x", p.armR[0] - typeJitter + sipBob - armDrift, 0.45, delta);
       easing.damp(armR.current.rotation, "z", p.armR[2], 0.45, delta);
+    }
+    if (rod.current && p.rod) {
+      // Rod bobs on the water, with an occasional sharp tug on the line.
+      const tug = Math.pow(Math.max(0, Math.sin(t * 0.27 + look.phase)), 21) * 0.28;
+      rod.current.rotation.x = 0.5 + Math.sin(t * 0.9 + look.phase) * 0.045 + tug;
     }
 
     // Props scale in/out smoothly instead of popping.
@@ -267,6 +303,21 @@ export function Brother({
           </mesh>
           <mesh position={[0, 0.09, -0.02]} material={hairMat}>
             <sphereGeometry args={[0.19, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2.1]} />
+          </mesh>
+          {/* Eyes — blink via group scale.y; held shut while dozing */}
+          <group ref={eyes} position={[0, 0.015, 0]}>
+            <mesh position={[-0.066, 0, 0.164]}>
+              <sphereGeometry args={[0.022, 8, 8]} />
+              <meshBasicMaterial color={EYE} />
+            </mesh>
+            <mesh position={[0.066, 0, 0.164]}>
+              <sphereGeometry args={[0.022, 8, 8]} />
+              <meshBasicMaterial color={EYE} />
+            </mesh>
+          </group>
+          {/* Little nose so the face reads at a distance */}
+          <mesh position={[0, -0.035, 0.18]} material={skinMat}>
+            <sphereGeometry args={[0.028, 8, 8]} />
           </mesh>
         </group>
         <group ref={armL} position={[-0.29, 0.48, 0]} rotation={[-1.05, 0, 0.15]}>
