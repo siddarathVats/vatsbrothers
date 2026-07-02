@@ -1,5 +1,5 @@
 import { Nav } from "./components/nav";
-import { Hero } from "./components/hero";
+import { SceneHero } from "./components/scene/scene-hero";
 import { MeetBrothers } from "./components/meet-brothers";
 import { BrotherSection } from "./components/brother-section";
 import { Together } from "./components/together";
@@ -15,7 +15,7 @@ export default function Page() {
       </a>
       <Nav />
       <main id="main">
-        <Hero />
+        <SceneHero />
         <MeetBrothers />
 
         <BrotherSection

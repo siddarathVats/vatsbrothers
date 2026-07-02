@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "./reveal";
+import { PaletteTrigger } from "./palette/palette-trigger";
 
 export function MeetBrothers() {
   return (
@@ -21,16 +22,22 @@ export function MeetBrothers() {
         <Reveal className="duo">
           <article className="duo__card" data-brother="sid">
             <div className="duo__head">
-              <div className="avatar avatar--photo" aria-hidden>
-                <Image
-                  src="/people/sid.png"
-                  alt=""
-                  width={144}
-                  height={144}
-                  sizes="72px"
-                  className="avatar__img"
-                />
-              </div>
+              <PaletteTrigger
+                brother="sid"
+                label="Open Siddarath's achievements and work"
+                className="avatar-btn"
+              >
+                <div className="avatar avatar--photo" aria-hidden>
+                  <Image
+                    src="/people/sid.png"
+                    alt=""
+                    width={144}
+                    height={144}
+                    sizes="72px"
+                    className="avatar__img"
+                  />
+                </div>
+              </PaletteTrigger>
               <div>
                 <h3>
                   <span className="accent-dot" aria-hidden />
@@ -61,16 +68,22 @@ export function MeetBrothers() {
 
           <article className="duo__card" data-brother="vin">
             <div className="duo__head">
-              <div className="avatar avatar--photo" aria-hidden>
-                <Image
-                  src="/people/vin.png"
-                  alt=""
-                  width={144}
-                  height={144}
-                  sizes="72px"
-                  className="avatar__img"
-                />
-              </div>
+              <PaletteTrigger
+                brother="vin"
+                label="Open Vinayak's achievements and work"
+                className="avatar-btn"
+              >
+                <div className="avatar avatar--photo" aria-hidden>
+                  <Image
+                    src="/people/vin.png"
+                    alt=""
+                    width={144}
+                    height={144}
+                    sizes="72px"
+                    className="avatar__img"
+                  />
+                </div>
+              </PaletteTrigger>
               <div>
                 <h3>
                   <span className="accent-dot" aria-hidden />

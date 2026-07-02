@@ -1,10 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Cinzel_Decorative } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "./theme-provider";
 import { LightboxProvider } from "./components/lightbox";
+import { PaletteProvider } from "./components/palette/palette-provider";
 import "./globals.css";
+
+const cinzelDecorative = Cinzel_Decorative({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-ornate",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vatsbrothers.com"),
@@ -45,7 +54,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${cinzelDecorative.variable}`}
     >
       <body>
         <ThemeProvider
@@ -55,7 +64,9 @@ export default function RootLayout({
           storageKey="vb-theme"
           disableTransitionOnChange
         >
-          <LightboxProvider>{children}</LightboxProvider>
+          <LightboxProvider>
+            <PaletteProvider>{children}</PaletteProvider>
+          </LightboxProvider>
         </ThemeProvider>
         <Analytics />
       </body>

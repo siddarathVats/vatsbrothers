@@ -56,10 +56,18 @@ export function Reveal({
     ...style,
   };
 
-  const TagAny = Tag as unknown as ElementType;
+  // Cast to a concrete permissive component type: with @react-three/fiber
+  // installed, JSX over a bare ElementType union folds its props to `never`.
+  const TagAny = Tag as unknown as React.ComponentType<{
+    children?: ReactNode;
+    className?: string;
+    style?: CSSProperties;
+    ref?: React.Ref<HTMLElement>;
+    [key: string]: unknown;
+  }>;
   return (
     <TagAny
-      ref={ref as never}
+      ref={ref}
       className={`reveal${initialIn ? " in" : ""} ${className}`.trim()}
       style={mergedStyle}
       {...rest}
